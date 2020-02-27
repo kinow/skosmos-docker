@@ -1,17 +1,25 @@
 FROM ubuntu:18.04
 
-ARG DEBIAN_FRONTEND=noninteractive
-ENV LANG en_US.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive 
 
 RUN apt-get update && apt-get install -y \
     apache2 \
     libapache2-mod-php7.2 \
+    locales \
     php7.2 \
     php7.2-curl \
     php7.2-xsl \
     php7.2-intl \
     php7.2-mbstring \
  && rm -rf /var/lib/apt/lists/*
+
+# https://stackoverflow.com/a/28406007
+# fixes warnings like perl: warning: Setting locale failed.
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8 
 
 # TODO: timezone
 # RUN sed -i 's/;date.timezone =/date.timezone = "Europe/Helsinki"/g' /etc/php5/fpm/php.ini
