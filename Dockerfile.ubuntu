@@ -1,0 +1,15 @@
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    libapache2-mod-php7.2 \
+    php7.2 \
+    php7.2-curl \
+    php7.2-xsl \
+    php7.2-intl \
+    php7.2-mbstring \
+ && rm -rf /var/lib/apt/lists/*
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
