@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
-ARG DEBIAN_FRONTEND=noninteractive 
+ARG DEBIAN_FRONTEND=noninteractive
+ARG SKOSMOS_TARGZ_RELEASE_URL=https://github.com/NatLibFi/Skosmos/archive/v2.3.tar.gz
 
 RUN apt-get update && apt-get install -y \
     apache2 \
@@ -32,5 +33,15 @@ RUN a2enmod expires
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install Skosmos
+RUN curl -L --output skosmos.tar.gz ${SKOSMOS_TARGZ_RELEASE_URL}
+RUN tar -zxvf skosmos.tar.gz && \
+	rm -rf /var/www/html/* && \
+	mv Skosmos*/* /var/www/html/
+
+WORKDIR /var/www/html
+
+RUN /usr/local/bin/composer install --no-dev
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
