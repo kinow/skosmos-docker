@@ -3,9 +3,11 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SKOSMOS_TARGZ_RELEASE_URL=https://github.com/NatLibFi/Skosmos/archive/v2.3.tar.gz
 
+# git is necessary for some composer packages e.g. davidstutz/bootstrap-multiselect
 RUN apt-get update && apt-get install -y \
     apache2 \
     curl \
+    git \
     libapache2-mod-php7.2 \
     locales \
     php7.2 \
@@ -13,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     php7.2-xsl \
     php7.2-intl \
     php7.2-mbstring \
+    php-zip \
+    unzip \
  && rm -rf /var/lib/apt/lists/*
 
 # https://stackoverflow.com/a/28406007
@@ -38,10 +42,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -L --output skosmos.tar.gz ${SKOSMOS_TARGZ_RELEASE_URL}
 RUN tar -zxvf skosmos.tar.gz && \
 	rm -rf /var/www/html/* && \
-	mv Skosmos*/* /var/www/html/
+	mv Skosmos*/* /var/www/html/ && \
+	rm -rf /Skomos* /skosmos.tar.gz
 
 WORKDIR /var/www/html
 
-RUN /usr/local/bin/composer install --no-dev
+RUN /usr/local/bin/composer install --no-dev --no-interaction
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
