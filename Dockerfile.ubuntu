@@ -7,6 +7,7 @@ ARG SKOSMOS_TARGZ_RELEASE_URL=https://github.com/NatLibFi/Skosmos/archive/v2.3.t
 RUN apt-get update && apt-get install -y \
     apache2 \
     curl \
+    gettext \
     git \
     libapache2-mod-php7.2 \
     locales \
@@ -15,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     php7.2-xsl \
     php7.2-intl \
     php7.2-mbstring \
+    php-gettext \
     php-zip \
     unzip \
  && rm -rf /var/lib/apt/lists/*
@@ -22,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 # https://stackoverflow.com/a/28406007
 # fixes warnings like perl: warning: Setting locale failed.
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen
+    locale-gen en_GB.utf8 && locale-gen de_DE.utf8
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8 
@@ -47,6 +49,10 @@ RUN tar -zxvf skosmos.tar.gz && \
 
 WORKDIR /var/www/html
 
+# Install Skosmos dependencies
 RUN /usr/local/bin/composer install --no-dev --no-interaction
+
+# Configure Skosmos
+COPY config.ttl.dist config.ttl
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
