@@ -53,6 +53,6 @@ WORKDIR /var/www/html
 RUN /usr/local/bin/composer install --no-dev --no-interaction
 
 # Configure Skosmos
-COPY config.ttl.dist config.ttl
+COPY config.ttl /var/www/html/config.ttl
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
