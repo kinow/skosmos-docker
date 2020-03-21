@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG SKOSMOS_TARGZ_RELEASE_URL=https://github.com/NatLibFi/Skosmos/archive/v2.3.tar.gz
+ARG SKOSMOS_TARGZ_RELEASE_URL=https://github.com/NatLibFi/Skosmos/archive/v2.4.tar.gz
 
 # git is necessary for some composer packages e.g. davidstutz/bootstrap-multiselect
 RUN apt-get update && apt-get install -y \
