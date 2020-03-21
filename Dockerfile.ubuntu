@@ -28,6 +28,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
         ar_AE.UTF-8 \
         de_DE.UTF-8 \
         en_GB.utf8 \
+        en_US.utf8 \
         es_ES.utf8 \
         fa_IR \
         fi_FI.utf8 \
@@ -40,9 +41,9 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
         ru_RU.utf8 \
         sv_SE.utf8 \
         zh_CN.utf8
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8 
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8 
+ENV LANG=en_US.UTF-8  
 
 # TODO: timezone
 # RUN sed -i 's/;date.timezone =/date.timezone = "Europe/Helsinki"/g' /etc/php5/fpm/php.ini
