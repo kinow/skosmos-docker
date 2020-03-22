@@ -60,9 +60,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install Skosmos
 RUN curl -L --output skosmos.tar.gz ${SKOSMOS_TARGZ_RELEASE_URL}
-RUN tar -zxvf skosmos.tar.gz && \
-	rm -rf /var/www/html/* && \
-	mv Skosmos*/* /var/www/html/ && \
+RUN rm -rf /var/www/html/* && \
+    tar -zxvf skosmos.tar.gz -C /var/www/html/ --strip-components=1 && \
 	rm -rf /Skosmos* /skosmos.tar.gz
 
 WORKDIR /var/www/html
