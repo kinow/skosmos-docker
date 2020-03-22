@@ -63,7 +63,7 @@ RUN curl -L --output skosmos.tar.gz ${SKOSMOS_TARGZ_RELEASE_URL}
 RUN tar -zxvf skosmos.tar.gz && \
 	rm -rf /var/www/html/* && \
 	mv Skosmos*/* /var/www/html/ && \
-	rm -rf /Skomos* /skosmos.tar.gz
+	rm -rf /Skosmos* /skosmos.tar.gz
 
 WORKDIR /var/www/html
 
