@@ -22,6 +22,10 @@ services:
       - 8000:80
     depends_on:
       - fuseki
+    volumes:
+      - type: bind
+        source: ./config-docker-compose.ttl
+        target: /var/www/html/config.ttl
 
 # once the environment has been created:
 # 1. create dataset
