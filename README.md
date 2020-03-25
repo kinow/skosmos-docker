@@ -1,4 +1,4 @@
-## Skosmos Docker
+# Skosmos Docker
 
 Dockerfiles for Skosmos.
 
