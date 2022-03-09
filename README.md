@@ -1,32 +1,6 @@
-# Skosmos Docker
+This repository was created before SKOSMOS added support to Docker. Now that
+SKOSMOS provides Docker instructions, and an example container image, this
+repository has become obsolete.
 
-Dockerfiles for Skosmos.
-
-## Running with Docker
-
-```bash
-$ docker build -t skosmos:test . -f Dockerfile.ubuntu
-$ docker run -ti --rm --name skosmos-web -p 9090:80 skosmos:test
-```
-
-To stop:
-
-```bash
-$ docker stop skosmos-web
-```
-
-## Running with docker-compose
-
-```bash
-$ docker-compose up -d
-```
-
-To stop:
-
-```bash
-$ docker-compose down
-```
-
-## License
-
-MIT License
+This repository is archived. If you want to use SKOSMOS with Docker, please
+refer to the [SKOSMOS repository](https://github.com/NatLibFi/Skosmos/).
